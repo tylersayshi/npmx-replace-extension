@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>npmx Redirect</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>npmx Redirect</h1>
+    <p class="description">Redirect npmjs.com to npmx.dev</p>
+
+    <label class="toggle">
+      <input type="checkbox" id="enabled" checked>
+      <span class="slider"></span>
+      <span class="label">Enabled</span>
+    </label>
+
+    <p class="status" id="status">Redirects active</p>
+
+    <a href="https://npmx.dev" target="_blank" class="link">Visit npmx.dev</a>
+  </div>
+
+  <script src="../lib/browser-polyfill.min.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

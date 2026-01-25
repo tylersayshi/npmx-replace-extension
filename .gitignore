@@ -1,0 +1,14 @@
+# Chrome generated
+_metadata/
+
+# Packaged extensions
+*.zip
+*.xpi
+*.crx
+web-ext-artifacts/
+
+# OS files
+.DS_Store
+
+# Editor
+*.swp
