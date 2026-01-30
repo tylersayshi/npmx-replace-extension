@@ -1,27 +1,25 @@
-// Popup script for npmx Redirect extension
+const toggle = document.getElementById("enabled");
+const status = document.getElementById("status");
 
-const toggle = document.getElementById('enabled');
-const status = document.getElementById('status');
-
-function updateStatus(enabled) {
-  if (enabled) {
-    status.textContent = 'Redirects active';
-    status.classList.remove('disabled');
-  } else {
-    status.textContent = 'Redirects paused';
-    status.classList.add('disabled');
-  }
+function updateUI(enabled) {
+  toggle.checked = enabled;
+  status.textContent = enabled ? "Redirects active" : "Redirects paused";
+  status.classList.toggle("disabled", !enabled);
 }
 
-// Get initial state
-browser.runtime.sendMessage({ type: 'getStatus' }).then(response => {
-  toggle.checked = response.enabled;
-  updateStatus(response.enabled);
+async function init() {
+  const { enabled = true } = await browser.storage.local.get("enabled");
+  updateUI(enabled);
+}
+
+browser.storage.onChanged.addListener((changes, area) => {
+  if (area === "local" && "enabled" in changes) {
+    updateUI(changes.enabled.newValue);
+  }
 });
 
-// Handle toggle changes
-toggle.addEventListener('change', async () => {
-  const enabled = toggle.checked;
-  updateStatus(enabled);
-  await browser.runtime.sendMessage({ type: 'toggle', enabled });
+toggle.addEventListener("change", () => {
+  browser.storage.local.set({ enabled: toggle.checked });
 });
+
+init();
